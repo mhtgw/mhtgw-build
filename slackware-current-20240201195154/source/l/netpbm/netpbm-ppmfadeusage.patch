@@ -1,0 +1,51 @@
+--- ./editor/ppmfade.orig	2023-10-02 13:25:51.308938861 -0500
++++ ./editor/ppmfade	2023-10-02 13:28:24.940930364 -0500
+@@ -109,13 +109,13 @@
+                 print STDERR ("There are no non-option arguments possible.  " .
+                               "You specified '$arg'\n");
+             }
+-            exit 100;
++            exit 1;
+         }
+     }
+ 
+     if (!defined($firstFileNm) && !defined($lastFileNm)) {
+         print STDERR ("You must specify -f or -l (or both)\n");
+-        exit 90;
++        exit 1;
+     }
+ 
+     if (!defined($mode)) {
+@@ -142,7 +142,7 @@
+         } else {
+             print STDERR
+                 ("Unrecognized results from pnmfile on $firstFileNm.\n");
+-            exit(50);
++            exit 1;
+         }
+     } else {
+         # $lastFileNm is defined
+@@ -151,7 +151,7 @@
+         } else {
+             print STDERR
+                 ("Unrecognized results from pnmfile on $firstFileNm.\n");
+-            exit(50);
++            exit 1;
+         }
+     }
+     return $width, $height;
+@@ -436,12 +436,12 @@
+ 
+ if (defined($firstFileNm) && !-e($firstFileNm)) {
+     print STDERR ("First file '$firstFileNm' does not exist\n");
+-    exit 20;
++    exit 1;
+ }
+ 
+ if (defined($lastFileNm) && !-e($lastFileNm)) {
+     print STDERR ("Last file '$lastFileNm' does not exist\n");
+-    exit 20;
++    exit 1;
+ }
+ 
+ my ($width, $height) = imageDimensions($firstFileNm, $lastFileNm);

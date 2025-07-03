@@ -1,0 +1,76 @@
+--- ./doc/custom-html.xsl.orig	2022-11-25 17:07:21.000000000 -0600
++++ ./doc/custom-html.xsl	2022-11-26 14:12:42.892529567 -0600
+@@ -2,7 +2,7 @@
+ 
+ <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+ 
+-<xsl:import href="http://docbook.sourceforge.net/release/xsl-ns/current/html/docbook.xsl"/>
++<xsl:import href="http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl"/>
+ <!--
+   - The docbook stylesheet injects empty anchor tags into generated HTML, identified by an auto-generated ID.
+   - Ask the docbook stylesheet to generate reproducible output when generating (these) ID values.
+--- ./doc/arping.xml.orig	2022-11-25 17:07:21.000000000 -0600
++++ ./doc/arping.xml	2022-11-26 14:11:48.538528351 -0600
+@@ -1,4 +1,4 @@
+-<refentry xmlns="http://docbook.org/ns/docbook" version="5.0"
++<refentry xmlns:db="http://docbook.org/ns/docbook" version="5.0"
+ xml:id="man.arping">
+ 
+   <refentryinfo>
+--- ./doc/meson.build.orig	2022-11-25 17:07:21.000000000 -0600
++++ ./doc/meson.build	2022-11-26 14:14:08.448531481 -0600
+@@ -20,7 +20,7 @@
+ 	manpages += ['tracepath']
+ endif
+ 
+-xsltproc = find_program('xsltproc', required : build_mans or build_html_mans)
++xsltproc = find_program('xsltproc', required : false)
+ xsltproc_args = [
+ 	'--nonet',
+ 	'--stringparam', 'man.output.quietly', '1',
+@@ -41,10 +41,6 @@
+ 	foreach doc_target : doc_targets
+ 		xsl = 'http://docbook.sourceforge.net/release/xsl-ns/current/' + doc_target + '/docbook.xsl'
+ 		testrun = run_command([xsltproc, '--nonet', xsl])
+-		if testrun.returncode() != 0
+-			xsltproc_works = false
+-			message('WARNING: xsltproc: cannot process ' + xsl)
+-		endif
+ 	endforeach
+ endif
+ 
+--- ./doc/tracepath.xml.orig	2022-11-25 17:07:21.000000000 -0600
++++ ./doc/tracepath.xml	2022-11-26 14:14:38.116532144 -0600
+@@ -1,4 +1,4 @@
+-<refentry xmlns="http://docbook.org/ns/docbook" version="5.0"
++<refentry xmlns:db="http://docbook.org/ns/docbook" version="5.0"
+ xml:id="man.tracepath">
+ 
+   <refentryinfo>
+--- ./doc/clockdiff.xml.orig	2022-11-25 17:07:21.000000000 -0600
++++ ./doc/clockdiff.xml	2022-11-26 14:11:55.087528497 -0600
+@@ -1,4 +1,4 @@
+-<refentry xmlns="http://docbook.org/ns/docbook" version="5.0"
++<refentry xmlns:db="http://docbook.org/ns/docbook" version="5.0"
+ xml:id="man.clockdiff">
+ 
+   <refentryinfo>
+--- ./doc/ping.xml.orig	2022-11-25 17:07:21.000000000 -0600
++++ ./doc/ping.xml	2022-11-26 14:14:30.108531965 -0600
+@@ -1,4 +1,4 @@
+-<refentry xmlns="http://docbook.org/ns/docbook" version="5.0"
++<refentry xmlns:db="http://docbook.org/ns/docbook" version="5.0"
+ xml:id="man.ping">
+ 
+   <refentryinfo>
+--- ./doc/custom-man.xsl.orig	2022-11-25 17:07:21.000000000 -0600
++++ ./doc/custom-man.xsl	2022-11-26 14:12:56.167529864 -0600
+@@ -5,7 +5,7 @@
+                 extension-element-prefixes="exsl"
+                 version="1.0">
+ 
+-<xsl:import href="http://docbook.sourceforge.net/release/xsl-ns/current/manpages/docbook.xsl"/>
++<xsl:import href="http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl"/>
+ 
+ <xsl:template name="top.comment" />
+ 

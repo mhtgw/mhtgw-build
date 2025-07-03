@@ -1,0 +1,45 @@
+--- ./44-wqy-zenhei.conf.orig	2009-01-09 17:36:40.000000000 -0600
++++ ./44-wqy-zenhei.conf	2017-04-30 16:32:33.135746412 -0500
+@@ -6,7 +6,11 @@
+   <match target="font">
+         <test qual="any" name="family">
+                 <string>WenQuanYi Zen Hei</string>
++        </test> 
++        <test qual="any" name="family">
+                 <string>文泉驿正黑</string>
++        </test> 
++        <test qual="any" name="family">
+                 <string>文泉驛正黑</string>
+         </test> 
+         <edit name="globaladvance"><bool>false</bool></edit>
+@@ -22,24 +26,27 @@
+         <alias>
+                 <family>serif</family>
+                 <prefer>
+-                        <family>Bitstream Vera Serif</family>
++                        <family>Liberation Serif</family>
+                         <family>DejaVu Serif</family>
++                        <family>Bitstream Vera Serif</family>
+                         <family>WenQuanYi Zen Hei</family>
+                 </prefer>
+         </alias>
+         <alias>
+                 <family>sans-serif</family>
+                 <prefer>
+-                        <family>Bitstream Vera Sans</family>
++                        <family>Liberation Sans</family>
+                         <family>DejaVu Sans</family>
++                        <family>Bitstream Vera Sans</family>
+                         <family>WenQuanYi Zen Hei</family>
+                 </prefer>
+         </alias>
+         <alias>
+                 <family>monospace</family>
+                 <prefer>
+-                        <family>Bitstream Vera Sans Mono</family>
++                        <family>Liberation Sans Mono</family>
+                         <family>DejaVu Sans Mono</family>
++                        <family>Bitstream Vera Sans Mono</family>
+                         <family>WenQuanYi Zen Hei Mono</family>
+                 </prefer>
+         </alias>

@@ -1,0 +1,11 @@
+--- ./nntp.c.orig	2017-01-04 15:03:32.235592431 -0600
++++ ./nntp.c	2017-01-04 15:06:09.724603794 -0600
+@@ -918,7 +918,7 @@
+     if ((hp = gethostbyname(nntp_server)) != NULL)
+ 	server_real_name = hp->h_name;
+     else
+-	nn_exitmsg(1, "NNTPSERVER is invalid");
++        nn_exitmsg(1, "NNTP host is invalid -- please edit /etc/nntpserver");
+ #ifdef USE_SPOOL
+     use_nntp = (strcasecmp(host, server_real_name) != 0);
+ #else /* USE_SPOOL */

@@ -1,0 +1,12 @@
+--- ./data/xfce4-screensaver-preferences.desktop.in.orig	2023-05-30 12:44:57.360018440 -0500
++++ ./data/xfce4-screensaver-preferences.desktop.in	2023-05-30 12:46:50.469020971 -0500
+@@ -1,7 +1,7 @@
+ [Desktop Entry]
+ _Name=Xfce Screensaver
+-_Comment=Set your screensaver preferences
+-_GenericName=Screensaver
++_Comment=Set your xfce4-screensaver preferences
++_GenericName=Xfce Screensaver
+ Icon=org.xfce.ScreenSaver
+ Exec=xfce4-screensaver-preferences
+ Terminal=false

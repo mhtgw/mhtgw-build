@@ -1,0 +1,20 @@
+--- ./Makefile-libbz2_so.orig	2019-06-28 13:18:39.579977418 -0500
++++ ./Makefile-libbz2_so	2019-06-28 13:20:04.753971278 -0500
+@@ -35,13 +35,13 @@
+       bzlib.o
+ 
+ all: $(OBJS)
+-	$(CC) -shared -Wl,-soname -Wl,libbz2.so.1.0 -o libbz2.so.1.0.8 $(OBJS)
++	$(CC) -shared -Wl,-soname -Wl,libbz2.so.1 -o libbz2.so.1.0.8 $(OBJS)
+ 	$(CC) $(CFLAGS) -o bzip2-shared bzip2.c libbz2.so.1.0.8
+-	rm -f libbz2.so.1.0
+-	ln -s libbz2.so.1.0.8 libbz2.so.1.0
++	rm -f libbz2.so.1
++	ln -s libbz2.so.1.0.8 libbz2.so.1
+ 
+ clean: 
+-	rm -f $(OBJS) bzip2.o libbz2.so.1.0.8 libbz2.so.1.0 bzip2-shared
++	rm -f $(OBJS) bzip2.o libbz2.so.1.0.8 libbz2.so.1 bzip2-shared
+ 
+ blocksort.o: blocksort.c
+ 	$(CC) $(CFLAGS) -c blocksort.c

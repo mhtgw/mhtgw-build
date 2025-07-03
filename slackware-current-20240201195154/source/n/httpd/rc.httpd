@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.httpd
+#
+# Start/stop/force-restart/restart/graceful[ly restart]/graceful[ly]-stop
+# the Apache (httpd) web server.
+#
+# To make Apache start automatically at boot, make this
+# file executable:  chmod 755 /etc/rc.d/rc.httpd
+#
+# For information on these options, "man apachectl".
+
+case "$1" in
+  'start')
+    /usr/sbin/apachectl -k start
+  ;;
+  'stop')
+    if [ ! -r /run/httpd.pid ]; then
+      pkill -f /usr/sbin/httpd
+    else
+      /usr/sbin/apachectl -k stop
+    fi
+    pwait -f /usr/sbin/httpd
+  ;;
+  'force-restart')
+    if [ ! -r /run/httpd.pid ]; then
+      pkill -f /usr/sbin/httpd
+    else
+      /usr/sbin/apachectl -k stop
+    fi
+    pwait -f /usr/sbin/httpd
+    /usr/sbin/apachectl -k start
+  ;;
+  'restart')
+    /usr/sbin/apachectl -k restart
+  ;;
+  'graceful')
+    /usr/sbin/apachectl -k graceful
+  ;;
+  'graceful-stop')
+    /usr/sbin/apachectl -k graceful-stop
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|force-restart|restart|graceful|graceful-stop}"
+  ;;
+esac
+

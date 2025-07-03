@@ -1,0 +1,121 @@
+#!/bin/bash
+
+# Copyright 2013-2014 Audrius Kažukauskas <audrius@neutrino.lt>
+# Copyright 2014, 2017, 2018, 2022  Patrick J. Volkerding, Sebeka, MN, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+cd $(dirname $0) ; CWD=$(pwd)
+
+# First, convert the .zip file if needed:
+if ls *.zip 1> /dev/null 2> /dev/null ; then
+  unzip *.zip
+  tar cf $(basename *.zip .zip).tar $(basename *.zip .zip)
+  touch -r *.zip *.tar
+  plzip -9 *.tar
+  rm -r $(basename *.zip .zip)
+  rm *.zip
+fi
+
+PKGNAM=python-setuptools
+VERSION=${VERSION:-$(echo setuptools-*.tar.?z | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
+BUILD=${BUILD:-1}
+
+SRCNAM=setuptools
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i586 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+if [ "$ARCH" = "i586" ]; then
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "s390" ]; then
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  LIBDIRSUFFIX="64"
+elif [ "$ARCH" = "armv7hl" ]; then
+  LIBDIRSUFFIX=""
+else
+  LIBDIRSUFFIX=""
+fi
+
+
+# If the variable PRINT_PACKAGE_NAME is set, then this script will report what
+# the name of the created package would be, and then exit. This information
+# could be useful to other scripts.
+if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
+  echo "$PKGNAM-$VERSION-$ARCH-$BUILD.txz"
+  exit 0
+fi
+
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-$PKGNAM
+
+rm -rf $PKG
+mkdir -p $TMP $PKG
+cd $TMP
+rm -rf $SRCNAM-$VERSION
+tar xvf $CWD/$SRCNAM-$VERSION.tar.?z || exit 1
+cd $SRCNAM-$VERSION || exit 1
+chown -R root:root .
+find -L . \
+ \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+  -o -perm 511 \) -exec chmod 755 {} \+ -o \
+ \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \+
+
+rm -f setuptools/*.exe
+
+# Recent Python versions support both a libdir (for pure Python modules) and a
+# platlib (for $ARCH specific modules). We've always patched Python to use
+# the platform directory (such as /usr/lib64/python3.9/site-packages on x86_64)
+# for all modules. Perhaps we will rethink this, but since an installed
+# setuptools now takes priority for reporting the libdir (and this no longer
+# matches the platlib on architectures such as x86_64), let's patch setuptools
+# to agree with Python:
+if [ "$LIBDIRSUFFIX" = "64" ]; then
+  zcat $CWD/setuptools.x86_64.diff.gz | patch -p1 --verbose || exit 1
+fi
+
+python3 setup.py install --root=$PKG || exit 1
+
+mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
+cp -a CHANGES.rst PKG-INFO README.rst docs/*.txt \
+  $PKG/usr/doc/$PKGNAM-$VERSION
+find $PKG/usr/doc/$PKGNAM-$VERSION -type f -exec chmod 0644 {} \+
+
+# If there's a CHANGES.rst, installing at least part of the recent history
+# is useful, but don't let it get totally out of control:
+if [ -r CHANGES.rst ]; then
+  DOCSDIR=$(echo $PKG/usr/doc/${PKGNAM}-$VERSION)
+  cat CHANGES.rst | head -n 1000 > $DOCSDIR/CHANGES.rst
+  touch -r CHANGES.rst $DOCSDIR/CHANGES.rst
+fi
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+/sbin/makepkg -l y -c n $TMP/$PKGNAM-$VERSION-$ARCH-$BUILD.txz

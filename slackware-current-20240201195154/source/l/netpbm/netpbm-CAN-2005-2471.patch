@@ -1,0 +1,13 @@
+--- ./converter/other/pstopnm.c.orig	2023-12-29 13:47:21.000000000 -0600
++++ ./converter/other/pstopnm.c	2023-12-29 13:50:33.241915523 -0600
+@@ -899,8 +899,8 @@
+                    "-dSAFER", "-");
+     }
+ 
+-    execl(ghostscriptProg, arg0, deviceopt, outfileopt, gopt, ropt,
+-          textalphabitsopt, "-q", "-dNOPAUSE", "-dSAFER", "-", NULL);
++    execl(ghostscriptProg, arg0, deviceopt, outfileopt, gopt, ropt, "-q",
++          "-dNOPAUSE", "-dPARANOIDSAFER", "-", NULL);
+ 
+     pm_error("execl() of Ghostscript ('%s') failed, errno=%d (%s)",
+              ghostscriptProg, errno, strerror(errno));

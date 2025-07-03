@@ -1,0 +1,11 @@
+--- ./configure.ac.orig	2018-11-08 15:30:51.834366741 -0600
++++ ./configure.ac	2018-11-08 15:31:25.275363974 -0600
+@@ -170,7 +170,7 @@
+ AS_IF([test "x$enable_libwrap" != "xno"], [
+     AC_CHECK_HEADER([tcpd.h], [
+     	build_libwrap="yes"
+-        WRAP_LIBS="-lwrap"
++        WRAP_LIBS="-lwrap  -lnsl"
+         AC_DEFINE([HOSTS_ACCESS], 1, [Use hosts.allow and hosts.deny for access checking of rpc.rquotad])
+         COMPILE_OPTS="$COMPILE_OPTS HOSTS_ACCESS"
+     ], [

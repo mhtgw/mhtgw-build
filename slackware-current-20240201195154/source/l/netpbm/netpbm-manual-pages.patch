@@ -1,0 +1,36 @@
+diff -u -r --new-file old/userguide/libnetpbm_ug.html new/userguide/libnetpbm_ug.html
+--- old/userguide/libnetpbm_ug.html	2020-07-22 13:59:14.000000000 -0500
++++ new/userguide/libnetpbm_ug.html	2020-07-22 14:25:33.630737946 -0500
+@@ -374,7 +374,7 @@
+ <H2 id="reference">Reference</h2>
+ 
+ <p>The <a href="libnetpbm_image.html">Libnetpbm Netpbm Image
+-Processing Manual</a> describes the the <b>libnetpbm</b> functions for
++Processing Manual</a> describes the <b>libnetpbm</b> functions for
+ processing image data.
+ 
+ <p>The <a href="libpm.html">Libnetpbm Utility Manual</a>
+diff -u -r --new-file old/userguide/pamfunc.html new/userguide/pamfunc.html
+--- old/userguide/pamfunc.html	2020-07-22 13:59:14.000000000 -0500
++++ new/userguide/pamfunc.html	2020-07-22 14:25:33.630737946 -0500
+@@ -55,7 +55,7 @@
+ and bit string (such as and with 01001000).  For the arithmetic functions, the
+ function arguments and results are the fraction that a sample is of the
+ maxval, i.e. normal interpretation of PAM tuples.  But for the bit string
+-functions, the value is the the bit string whose value as a binary cipher is
++functions, the value is the bit string whose value as a binary cipher is
+ the sample value, and the maxval indicates the width of the bit string.
+ 
+ <h4>Arithmetic functions</h4>
+diff -u -r --new-file old/userguide/pbmtog3.html new/userguide/pbmtog3.html
+--- old/userguide/pbmtog3.html	2020-07-22 13:59:14.000000000 -0500
++++ new/userguide/pbmtog3.html	2020-07-22 14:27:19.950732066 -0500
+@@ -80,7 +80,7 @@
+ <h2 id="history">HISTORY</h2>
+ 
+ <p>Before Netpbm 10.79 (June 2017), there was a different program by the same
+-name in Netpbm, which was written by by Paul Haeberli
++name in Netpbm, which was written by Paul Haeberli
+ &lt;<a href="mailto:paul@manray.sgi.com">paul@manray.sgi.com</a>&gt; in 1989
+ and then modified extensively by others.
+ 

@@ -1,0 +1,183 @@
+
+Slackware 14.2 to 15.0 Upgrade HOWTO  <volkerdi@slackware.com>
+
+This document explains how to upgrade from Slackware 14.2 to Slackware 15.0.
+
+----------------------------------------------------------------------------
+
+For details of important changes from Slackware 14.2 to 15.0, see the file
+'CHANGES_AND_HINTS.TXT'. Thanks to Robby Workman for help with this.
+
+Before you begin, I would strongly recommend making a backup of your
+system, or, if not the entire system, at least the /etc directory. You
+might find that you need to refer to a few things after the upgrade
+process is complete. Back it up, or take your chances.
+
+OK, now that everything is safely backed up, let's proceed. :-)
+
+To do this, you'll need the Slackware 15.0 packages. If these are on a DVD,
+create a new directory to mount the DVD on so that it doesn't get in the way
+during the upgrade:
+
+mkdir /packages
+mount /dev/cdrom /packages
+
+The packages don't have to be on a DVD, as an alternative you could
+copy the slackware directory (the one with the various package
+subdirectories in it, basically the "slackware" or "slackware64" directory
+from the install disc) to someplace like /root/slackware/. The important thing
+is that you know where the slackware packages directory is. We'll use
+/root/slackware in the following examples.
+
+
+0.  Put your machine in single-user mode:
+    telinit 1
+
+    Note that this is _not_ strictly required, and there have been reports
+    of success remotely upgrading machines that are still in multiuser
+    mode.  However, more things can go wrong in multiuser, so especially
+    if you're considering a remote upgrade in multiuser mode, you might
+    want to clone the machine locally so that you can do a test run to
+    uncover any problem areas and come up with workarounds for them.
+
+
+1.  Upgrade your glibc shared libraries. This is important, or things
+    might go haywire during the next part of the upgrade:
+
+    upgradepkg --install-new /root/slackware/a/aaa_glibc-solibs-*.txz
+
+
+2.  Upgrade your package utilities and related tools:
+
+    upgradepkg /root/slackware/a/pkgtools-*.txz
+    upgradepkg /root/slackware/a/tar-*.txz
+    upgradepkg /root/slackware/a/xz-*.txz
+    upgradepkg /root/slackware/a/findutils-*.txz
+
+
+3.  Upgrade everything else (and install new packages):
+
+    upgradepkg --install-new --terse /root/slackware/*/*.t?z
+
+
+4.  Remove obsolete packages. The CHANGES_AND_HINTS.TXT file should have a
+    list of these. You may also wish to go into /var/lib/pkgtools/packages
+    and take a look at the package list:
+
+    ls -lt | less
+
+    You may spot some old, obsolete, or discontinued packages. If so,
+    you can remove these using 'removepkg'. This command will get rid of
+    the packages which became obsolete since Slackware 14.2 or were
+    introduced during the 15.0 development cycle and later removed:
+
+    removepkg --terse ConsoleKit2 PyQt Thunar aaa_elflibs amarok amor ash \
+      automoc4 bigreqsproto calligra-l10n-bs calligra-l10n-ca \
+      calligra-l10n-ca@valencia calligra-l10n-cs calligra-l10n-da \
+      calligra-l10n-de calligra-l10n-el calligra-l10n-en_GB calligra-l10n-es \
+      calligra-l10n-et calligra-l10n-fi calligra-l10n-fr calligra-l10n-gl \
+      calligra-l10n-hu calligra-l10n-it calligra-l10n-ja calligra-l10n-kk \
+      calligra-l10n-nb calligra-l10n-nl calligra-l10n-pl calligra-l10n-pt \
+      calligra-l10n-pt_BR calligra-l10n-ru calligra-l10n-sk calligra-l10n-sv \
+      calligra-l10n-tr calligra-l10n-uk calligra-l10n-zh_CN \
+      calligra-l10n-zh_TW cargo cgmanager compositeproto damageproto db42 \
+      db44 dirmngr dmxproto dri2proto dri3proto eigen2 eject evieext \
+      fixesproto fontcacheproto fontsproto gcc-java getty-ps glade3 \
+      glibc-solibs glproto gnome-themes-standard gnu-cobol gst-plugins-base0 \
+      gst-plugins-good0 gstreamer0 gtk-xfce-engine herqq idnkit ilmbase \
+      imapd inputproto intel-gpu-tools js185 kaccessible kajongg \
+      kaudiocreator kbproto kde-base-artwork kde-baseapps kde-l10n-ar \
+      kde-l10n-bg kde-l10n-bs kde-l10n-ca kde-l10n-ca@valencia kde-l10n-cs \
+      kde-l10n-da kde-l10n-de kde-l10n-el kde-l10n-en_GB kde-l10n-es \
+      kde-l10n-et kde-l10n-eu kde-l10n-fa kde-l10n-fi kde-l10n-fr \
+      kde-l10n-ga kde-l10n-gl kde-l10n-he kde-l10n-hi kde-l10n-hr \
+      kde-l10n-hu kde-l10n-ia kde-l10n-id kde-l10n-is kde-l10n-it \
+      kde-l10n-ja kde-l10n-kk kde-l10n-km kde-l10n-ko kde-l10n-lt \
+      kde-l10n-lv kde-l10n-mr kde-l10n-nb kde-l10n-nds kde-l10n-nl \
+      kde-l10n-nn kde-l10n-pa kde-l10n-pl kde-l10n-pt kde-l10n-pt_BR \
+      kde-l10n-ro kde-l10n-ru kde-l10n-sk kde-l10n-sl kde-l10n-sr \
+      kde-l10n-sv kde-l10n-tr kde-l10n-ug kde-l10n-uk kde-l10n-wa \
+      kde-l10n-zh_CN kde-l10n-zh_TW kde-runtime kde-wallpapers kde-workspace \
+      kdeartwork kdegraphics-strigi-analyzer kdelibs \
+      kdenetwork-strigi-analyzers kdepim kdepim-apps-libs kdepimlibs \
+      kdesdk-strigi-analyzers kdevelop-php kdevelop-php-docs kdevplatform \
+      kdewebdev keybinder kgamma kio-mtp klettres korundum kplayer kppp \
+      kremotecontrol ksaneplugin ksnapshot ksysguard ktuberling ktux \
+      kuser kwebkitpart lha libXfont libart_lgpl libbluedevil libcroco \
+      libkdeedu libkgeomap liblastfm libmcs libmm-qt libmowgli libmsn \
+      libnm-qt libtermcap libva-intel-driver libwmf-docs mailx man \
+      mkfontdir mozjs52 mozjs60 mozjs68 mplayerthumbs nepomuk-core \
+      nepomuk-widgets notify-python openldap-client openssl10 \
+      openssl10-solibs orage oxygen-icons pairs perlkde perlqt \
+      phonon-gstreamer pm-utils presentproto printproto pth pykde4 pyrex \
+      python python-enum34 qca-qt5 qimageblitz qjson qt qt-gstreamer qtruby \
+      qtscriptgenerator randrproto raptor2 rasqal recordproto redland \
+      renderproto resourceproto rfkill rxvt scim scim-anthy scim-hangul \
+      scim-input-pad scim-m17n scim-pinyin scim-tables scrnsaverproto \
+      seamonkey-solibs sendmail sendmail-cf slocate smokegen smokekde \
+      smokeqt soprano strigi superkaramba tetex tetex-doc transfig trn \
+      urwid videoproto virtuoso-ose wicd-kde wireless-tools workbone \
+      xcmiscproto xextproto xf86-video-xgi xf86-video-xgixp xf86bigfontproto \
+      xf86dgaproto xf86driproto xf86miscproto xf86vidmodeproto xfractint \
+      xineramaproto xproto xv
+
+
+5.  Fix your config files. Some of the config files in /etc are going to 
+    need your attention. You'll find the new incoming config files on 
+    your system with the ".new" extension. You may need to fill these in 
+    with information from your old config files and then move them over.
+
+    Feel brave? You can use this little script to install most of the
+    .new config files in /etc. If you've made any local changes you'll
+    need to add them to the newly installed files. Your old config files
+    will be copied to *.bak. Anyway, it might be an easier starting
+    point. Here it is:
+
+     #!/bin/sh
+     cd /etc
+     find . -name "*.new" | while read configfile ; do
+       if [ ! "$configfile" = "./rc.d/rc.inet1.conf.new" \
+         -a ! "$configfile" = "./rc.d/rc.local.new" \
+         -a ! "$configfile" = "./group.new" \
+         -a ! "$configfile" = "./passwd.new" \
+         -a ! "$configfile" = "./shadow.new" ]; then
+         cp -a $(echo $configfile | rev | cut -f 2- -d . | rev) \
+           $(echo $configfile | rev | cut -f 2- -d . | rev).bak 2> /dev/null
+         mv --verbose $configfile $(echo $configfile | rev | cut -f 2- -d . | rev)
+       fi
+     done
+
+    You might also wish to move this config file over:
+
+    /usr/share/vim/vimrc.new
+
+
+6.  IMPORTANT! *Before* attempting to reboot your system, you will need
+    to make sure that the bootloader has been updated for the new kernel!
+    First, be sure your initrd is up to date (if you use one). You can
+    build a new initrd automatically by running the geninitrd script:
+
+    # geninitrd
+
+    If you use LILO, make sure the paths in /etc/lilo.conf point to a valid
+    kernel and then type 'lilo' to reinstall LILO. If you use a USB memory
+    stick to boot, copy the new kernel to it in place of the old one.
+
+    If you are using elilo on a machine with UEFI BIOS, run the eliloconfig
+    command to install the new kernel and initrd to the EFI System Partition.
+
+
+7.  Return to multi-user mode:
+    telinit 3
+
+
+8.  Reboot to start using the new kernel.
+
+
+At this point you should be running Slackware 15.0.  :-)
+
+I wish everyone good luck with this!
+
+---
+Patrick Volkerding
+volkerdi@slackware.com

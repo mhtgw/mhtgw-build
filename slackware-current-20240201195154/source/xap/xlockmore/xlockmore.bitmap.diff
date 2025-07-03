@@ -1,0 +1,20 @@
+--- ./xlock/XLock.ad.orig	2023-09-10 18:17:22.000000000 -0500
++++ ./xlock/XLock.ad	2023-09-23 15:07:59.190007162 -0500
+@@ -86,6 +86,8 @@
+ !XLock.*.bitmap: bitmaps/m-xlock.xbm
+ !XLock.*.bitmap: pixmaps/m-xlock.xpm
+ !XLock.*.bitmap: /usr/lib/X11/xlock/bitmaps
++! It's best to have no default here, or it kills the bat mode:
++!XLock.*.bitmap: /usr/X11R6/include/X11/bitmaps/s-bob.xbm
+ 
+ ! For mailbox check application
+ !XLock.mailCmd: /usr/ucb/mail -e
+@@ -188,6 +190,8 @@
+ !XLock.bounce.cycles: 1
+ XLock.bounce.size: 0
+ XLock.bounce.saturation: 1.0
++! "Bob" is taking over the bounce mode by default:
++XLock.bounce.bitmap: /usr/X11R6/include/X11/bitmaps/s-bob.xbm
+ XLock.boxed.delay: 1000
+ !XLock.boxed.count: 1
+ !XLock.boxed.cycles: 2

@@ -1,0 +1,37 @@
+#!/bin/sh
+#BLURB="Generate /boot/initrd.gz for the generic kernel"
+
+# Start with the version for vmlinuz-generic-smp:
+KERNEL_SYMLINK="boot/vmlinuz-generic-smp"
+if [ -L $KERNEL_SYMLINK ]; then
+  KERNEL_VERSION_LIST=$(strings $KERNEL_SYMLINK | grep '([^ ]*@[^ ]*) #' | cut -f1 -d' ')
+fi
+
+# Next add the version for vmlinuz-generic:
+KERNEL_SYMLINK="boot/vmlinuz-generic"
+if [ -L $KERNEL_SYMLINK ]; then
+  if [ -z $KERNEL_VERSION_LIST ]; then
+    KERNEL_VERSION_LIST=$(strings $KERNEL_SYMLINK | grep '([^ ]*@[^ ]*) #' | cut -f1 -d' ')
+  else
+    KERNEL_VERSION_LIST="$KERNEL_VERSION_LIST:$(strings $KERNEL_SYMLINK | grep '([^ ]*@[^ ]*) #' | cut -f1 -d' ')"
+  fi
+fi
+
+# Proper plural(s):
+if echo $KERNEL_VERSION_LIST | grep -q : ; then
+  KERNEL=kernels
+else
+  KERNEL=kernel
+fi
+
+# Generate the initrd:
+if [ ! -z $KERNEL_VERSION_LIST ]; then
+  dialog --title "GENERATING INITIAL RAMDISK" --infobox \
+  "Generating an initial ramdisk for use with the $KERNEL_VERSION_LIST generic \
+${KERNEL}. The initial ramdisk contains kernel modules needed to mount the \
+root partition, and must be regenerated whenever the kernel is updated. To \
+regenerate the initrd, select this setup script from within pkgtool, or run \
+'geninitrd' which will produce an initial ramdisk (/boot/initrd.gz) for the \
+installed generic ${KERNEL}." 9 68
+  chroot . /usr/share/mkinitrd/mkinitrd_command_generator.sh -k $KERNEL_VERSION_LIST | chroot . bash 1> /dev/null 2> /dev/null
+fi

@@ -1,0 +1,12 @@
+--- ./runtime/vimrc_example.vim.orig	2019-01-04 17:35:22.000000000 -0600
++++ ./runtime/vimrc_example.vim	2019-01-11 14:43:36.366302054 -0600
+@@ -49,6 +49,9 @@
+ 
+ endif " has("autocmd")
+ 
++" Make vim work with the 'crontab -e' command
++set backupskip+=/var/spool/cron/*,/run/cron/*
++
+ " Add optional packages.
+ "
+ " The matchit plugin makes the % command work better, but it is not backwards

@@ -1,0 +1,19 @@
+Thu Dec 21 19:06:04 UTC 2023
+  bind: fix build without krb5. Thanks to teoberi and Windu.
++--------------------------+
+Sun Aug 27 18:13:06 UTC 2023
+  openssh: fix zlib version check. Thanks to nobodino and marav.
++--------------------------+
+Mon May  1 23:45:40 UTC 2023
+  ncftp: add "CC=gcc \" before the configure block.
+  Thanks to nobodino.
++--------------------------+
+Thu Nov  3 18:45:20 UTC 2022
+  s-nail: fix build with make-4.4. Thanks to nobodino and marav.
++--------------------------+
+Wed Aug  3 19:33:03 UTC 2022
+  php: fix alpine version. Thanks to nobodino.
++--------------------------+
+Mon Feb  7 20:57:55 UTC 2022
+  All packages tested and found to compile properly.
++--------------------------+

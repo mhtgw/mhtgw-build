@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description. Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in. You must
+# make exactly 11 lines for the formatting to be correct. It's also
+# customary to leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+openexr: openexr (HDR Image File Format & Library)
+openexr:
+openexr: OpenEXR provides the specification and reference implementation of the
+openexr: EXR file format, the professional-grade image storage format of the
+openexr: motion picture industry. The purpose of EXR format is to accurately
+openexr: and efficiently represent high-dynamic-range scene-linear image data
+openexr: and associated metadata, with strong support for multi-part, multi-
+openexr: channel use cases.
+openexr:
+openexr: Homepage: http://www.openexr.org/
+openexr:

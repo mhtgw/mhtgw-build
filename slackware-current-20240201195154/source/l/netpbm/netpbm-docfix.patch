@@ -1,0 +1,124 @@
+diff -u -r --new-file old/converter/pbm/pbmtoepson.c new/converter/pbm/pbmtoepson.c
+--- old/converter/pbm/pbmtoepson.c	2020-07-22 13:59:06.000000000 -0500
++++ new/converter/pbm/pbmtoepson.c	2020-07-22 14:07:25.589798129 -0500
+@@ -75,7 +75,7 @@
+             &dpiSpec,                         0);
+     OPTENT3(0, "adjacent",     OPT_FLAG,     NULL,
+             &adjacentSpec,                    0);
+-    OPTENT3(0, "nonadjacent",  OPT_FLAG,     NULL,
++    OPTENT3(0, "noadjacent",  OPT_FLAG,     NULL,
+             &nonadjacentSpec,                 0);
+ 
+     opt.opt_table = option_def;
+diff -u -r --new-file old/userguide/cameratopam.html new/userguide/cameratopam.html
+--- old/userguide/cameratopam.html	2020-07-22 13:59:14.000000000 -0500
++++ new/userguide/cameratopam.html	2020-07-22 14:07:25.588798129 -0500
+@@ -24,10 +24,10 @@
+ [<b>-balance_camera</b>]
+ [<b>-red_scale=</b><i>float</i>]
+ [<b>-blue_scale=</b><i>float</i>]
+-[<b>-brightness=</b><i>fraction</i>]
++[<b>-bright=</b><i>fraction</i>]
+ [<b>-no_clip_color</b>]
+ [<b>-rgb</b>]
+-[<b>-secondary</b>]
++[<b>-use_secondary</b>]
+ [<b>-linear</b>]
+ [<b>-verbose</b>]
+ 
+@@ -110,7 +110,7 @@
+ <dd>Further adjust the color balance by multiplying the red and blue
+ channels by these values.  Both default to 1.0.
+ 
+-<dt><b>-brightness=</b><i>float</i>
++<dt><b>-bright=</b><i>float</i>
+ 
+ <dd>Change the output brightness.  Default is 1.0.
+ 
+@@ -118,14 +118,14 @@
+ 
+ <dd>By default, <b>cameratoapm</b> clips all colors to prevent pink
+ hues in the highlights.  Combine this option with
+-<b>-brightness=0.25</b> to leave the image data completely unclipped.
++<b>-bright=0.25</b> to leave the image data completely unclipped.
+ 
+ <dt><b>-rgb</b>
+ 
+ <dd>Write raw camera colors to the output file.  By default,
+ <b>cameratoapm</b> converts to sRGB colorspace.
+ 
+-<dt><b>-secondary</b>
++<dt><b>-use_secondary</b>
+ 
+ <dd>For cameras based on the Fuji Super CCD SR, this option causes
+ <b>cameratopam</b> to use the secondary sensors, in effect
+diff -u -r --new-file old/userguide/fiascotopnm.html new/userguide/fiascotopnm.html
+--- old/userguide/fiascotopnm.html	2020-07-22 13:59:14.000000000 -0500
++++ new/userguide/fiascotopnm.html	2020-07-22 14:05:31.049804465 -0500
+@@ -56,7 +56,7 @@
+ this list. Otherwise, the current directory is used to store the
+ output file(s).
+ 
+-<dt><b>-z</b>, <b>--fast</b>
++<dt><b>-r</b>, <b>--fast</b>
+ <dd>
+ Decompress images in the 4:2:0 format; i.e., each chroma channel is
+ decompressed to an image of halved width and height. Use this option
+@@ -88,7 +88,7 @@
+ is 70. When <i>N</i>=0, then the smoothing amount specified in the
+ FIASCO file is used (defined by the FIASCO coder).
+ 
+-<dt><b>-F</b> <i>N</i>, <b>--fps=</b><i>N</i>
++<dt><b>-F</b> <i>N</i>, <b>--framerate=</b><i>N</i>
+ <dd>
+ Set number of frames per second to <i>N</i>. When using this option,
+ the frame rate specified in the FIASCO file is overridden.
+@@ -118,13 +118,8 @@
+ <li>--config=<i>name</i>
+ </ol>
+ 
+-<dt><b>-h</b>, <b>--info</b>
+-<dd>
+-Print brief help, then exit.
+-
+-<dt><b>-H</b>, <b>--help</b>
+-<dd>
+-Print detailed help, then exit.
++<dt><b>-h</b>, <b>--help</b>
++Print help, then exit.
+ 
+ </dl>
+ 
+diff -u -r --new-file old/userguide/pamperspective.html new/userguide/pamperspective.html
+--- old/userguide/pamperspective.html	2020-07-22 13:59:14.000000000 -0500
++++ new/userguide/pamperspective.html	2020-07-22 14:07:25.589798129 -0500
+@@ -220,7 +220,7 @@
+ a rectangle the axes of which are parallel to those of the frame.
+ 
+ <p>The frame options are additive.  All the parts of the image
+-specified by either margin options, <b>--include_frame</b>, or
++specified by either margin options, <b>--frame_include</b>, or
+ <b>--include</b> (or their defaults) are in the visible part.  The
+ visible part is the smallest possible rectangle that contains the
+ parts specified those three ways.
+diff -u -r --new-file old/userguide/pbmtoepson.html new/userguide/pbmtoepson.html
+--- old/userguide/pbmtoepson.html	2020-07-22 13:59:14.000000000 -0500
++++ new/userguide/pbmtoepson.html	2020-07-22 14:07:25.589798129 -0500
+@@ -16,7 +16,7 @@
+ [<b>-dpi=</b><i>n</i>]
+ [<b>-protocol=</b>{<b>escp9</b>|<b>escp</b>}]
+ [<b>-adjacent</b>]
+-[<b>-nonadjacent</b>]
++[<b>-noadjacent</b>]
+ 
+ [<i>pbmfile</i>]
+ 
+@@ -75,7 +75,7 @@
+ <p>This option was new in Netpbm 10.23 (July 2004).     
+ 
+ <dt><b>-adjacent</b>
+-<dt><b>-nonadjacent</b>
++<dt><b>-noadjacent</b>
+ 
+ <dd>These options determine whether the output uses "adjacent dot
+ printing" or not, whatever that is.

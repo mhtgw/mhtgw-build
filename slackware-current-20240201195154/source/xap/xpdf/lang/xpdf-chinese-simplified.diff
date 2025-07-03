@@ -1,0 +1,19 @@
+--- ./add-to-xpdfrc.orig	2019-10-03 13:51:29.655084567 -0500
++++ ./add-to-xpdfrc	2019-10-03 13:53:02.916076850 -0500
+@@ -1,9 +1,9 @@
+ #----- begin Chinese Simplified support package (2011-sep-02)
+-cidToUnicode	Adobe-GB1	/usr/local/share/xpdf/chinese-simplified/Adobe-GB1.cidToUnicode
+-unicodeMap	ISO-2022-CN	/usr/local/share/xpdf/chinese-simplified/ISO-2022-CN.unicodeMap
+-unicodeMap	EUC-CN		/usr/local/share/xpdf/chinese-simplified/EUC-CN.unicodeMap
+-unicodeMap	GBK		/usr/local/share/xpdf/chinese-simplified/GBK.unicodeMap
+-cMapDir		Adobe-GB1	/usr/local/share/xpdf/chinese-simplified/CMap
+-toUnicodeDir			/usr/local/share/xpdf/chinese-simplified/CMap
+-#fontFileCC	Adobe-GB1	/usr/..../NotoSansCJKsc-Regular.otf
++cidToUnicode	Adobe-GB1	/usr/share/xpdf/chinese-simplified/Adobe-GB1.cidToUnicode
++unicodeMap	ISO-2022-CN	/usr/share/xpdf/chinese-simplified/ISO-2022-CN.unicodeMap
++unicodeMap	EUC-CN		/usr/share/xpdf/chinese-simplified/EUC-CN.unicodeMap
++unicodeMap	GBK		/usr/share/xpdf/chinese-simplified/GBK.unicodeMap
++cMapDir		Adobe-GB1	/usr/share/xpdf/chinese-simplified/CMap
++toUnicodeDir			/usr/share/xpdf/chinese-simplified/CMap
++fontFileCC	Adobe-GB1	/usr/share/fonts/TTF/wqy-zenhei.ttc
+ #----- end Chinese Simplified support package

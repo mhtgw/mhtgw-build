@@ -1,0 +1,12 @@
+diff -Nur file-5.08.orig//src/readelf.h file-5.08/src/readelf.h
+--- file-5.08.orig//src/readelf.h	2011-08-03 09:45:16.000000000 -0500
++++ file-5.08/src/readelf.h	2011-08-23 21:10:04.228054614 -0500
+@@ -239,7 +239,7 @@
+  * word[2]: minor version
+  * word[3]: tiny version
+  */
+-#define	NT_GNU_VERSION		1
++#define	NT_GNU_VERSION		0
+ 
+ /* GNU OS tags */
+ #define	GNU_OS_LINUX	0

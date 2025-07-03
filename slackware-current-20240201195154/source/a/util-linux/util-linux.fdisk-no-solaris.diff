@@ -1,0 +1,12 @@
+diff -Nur util-linux-2.24.2.orig/include/pt-mbr-partnames.h util-linux-2.24.2/include/pt-mbr-partnames.h
+--- util-linux-2.24.2.orig/include/pt-mbr-partnames.h	2014-04-24 02:37:04.352704164 -0500
++++ util-linux-2.24.2/include/pt-mbr-partnames.h	2014-07-03 03:33:27.054574467 -0500
+@@ -49,7 +49,7 @@
+ 	{0x75, N_("PC/IX")},
+ 	{0x80, N_("Old Minix")},	/* Minix 1.4a and earlier */
+ 	{0x81, N_("Minix / old Linux")},/* Minix 1.4b and later */
+-	{0x82, N_("Linux swap / Solaris")},
++	{0x82, N_("Linux swap")},
+ 	{0x83, N_("Linux")},
+ 	{0x84, N_("OS/2 hidden C: drive")},
+ 	{0x85, N_("Linux extended")},

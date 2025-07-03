@@ -1,0 +1,120 @@
+--- conf/s-linux.h.orig	2009-11-11 15:43:05.780197095 -0500
++++ conf/s-linux.h	2009-11-11 15:44:38.760195349 -0500
+@@ -131,9 +131,9 @@
+  *	(in config.h).
+  */
+ 
+-#define HAVE_GETHOSTNAME			/* BSD systems */
++/* #define HAVE_GETHOSTNAME			/* BSD systems */
+ /* #define HAVE_UNAME */			/* System V */
+-/* #define HOSTNAME_FILE "/etc/uucpname"	/* or another file */
++#define HOSTNAME_FILE "/etc/HOSTNAME"	/* or another file */
+ /* #define HOSTNAME_WHOAMI			/* in <whoami.h> */
+ 
+ /*
+--- config.h-dist.orig	2009-11-11 15:44:13.560225381 -0500
++++ config.h-dist	2009-11-11 15:49:36.937239629 -0500
+@@ -45,7 +45,7 @@
+ #define DO_NOV_DIGEST
+ 
+ /* Optional */
+-/* #define NOV_DIRECTORY	"/usr/spool/news"	*/
++#define NOV_DIRECTORY	"/var/spool/news/over.view"
+ 
+ /* Optional */
+ /* #define NOV_FILENAME		".overview"		*/
+@@ -68,7 +68,7 @@
+  *	LIB_DIRECTORY defined below.
+  */
+ 
+-#define NNTP_SERVER	"/usr/local/lib/nntp_server"
++#define NNTP_SERVER	"/etc/nntpserver"
+ 
+ /*
+  *  Define your local domain name.  If you leave this undefined, nn will
+@@ -95,7 +95,7 @@
+  *	conf/s-template.h as a starting point for writing you own.
+  */
+ 
+-#include "s-sunos5.h"
++#include "s-linux.h"
+ 
+ /*
+  *	Define DEFAULT_PAGER as the initial value of the 'pager' variable.
+@@ -111,7 +111,7 @@
+  */
+ 
+ /* #define DEFAULT_PRINTER	"lp -s"		*/	/* System V */
+-#define DEFAULT_PRINTER		"lpr -p -JNEWS"		/* bsd */
++#define DEFAULT_PRINTER		"lpr -JNEWS"		/* bsd */
+ 
+ 
+ /********************** MACHINE DEPENDENT DEFINITIONS **********************
+@@ -173,8 +173,8 @@
+  *			   (= LIB_DIRECTORY/Log if undefined).
+  */
+ 
+-#define BIN_DIRECTORY	"/usr/local/bin"
+-#define LIB_DIRECTORY	"/usr/local/lib/nn"
++#define BIN_DIRECTORY	"/usr/bin"
++#define LIB_DIRECTORY	"/usr/lib/nn"
+ 
+ 
+ /*************************** MAIL INTERFACE *************************
+@@ -189,7 +189,7 @@
+  */
+ 
+ /* #define REC_MAIL	"/usr/lib/news/recmail"	*/	/* non-sendmail */
+-#define REC_MAIL	"/usr/lib/sendmail -t"		/* sendmail */
++#define REC_MAIL	"/usr/sbin/sendmail -t"		/* sendmail */
+ 
+ /*
+  *	nn needs to know the name of your host.
+@@ -237,13 +237,13 @@
+  *	DAEMON_MAN	- nnmaster
+  */
+ 
+-#define USER_MAN_DIR	"/usr/local/man/man1"
++#define USER_MAN_DIR	"/usr/man/man1"
+ #define USER_MAN_SECTION	"1"
+ 
+-#define SYS_MAN_DIR	"/usr/local/man/man1"
++#define SYS_MAN_DIR	"/usr/man/man1"
+ #define SYS_MAN_SECTION		"1m"
+ 
+-#define DAEMON_MAN_DIR	"/usr/local/man/man8"
++#define DAEMON_MAN_DIR	"/usr/man/man8"
+ #define DAEMON_MAN_SECTION	"8"
+ 
+ 
+@@ -301,8 +301,8 @@
+  *	SIGN_TYPE is the program to be used to create digital signatures.
+  */
+ 
+-/* #define SIGN_TYPE		"gpg"		*/
+-#define SIGN_TYPE		"pgp"
++#define SIGN_TYPE		"gpg"
++/* #define SIGN_TYPE		"pgp"		*/
+ 
+ /*
+  *	If no "Lines:" header field is present, NN can be made to
+@@ -425,7 +425,7 @@
+  *				  Default: NEWS_LIB_DIR/{rm,del}group
+  */
+ 
+-/* #define NEWS_DIRECTORY	"/usr/spool/news"	*/
+-/* #define NEWS_LIB_DIRECTORY	"/usr/lib/news"		*/
++/* #define NEWS_DIRECTORY	"/var/spool/news"	*/
++/* #define NEWS_LIB_DIRECTORY	"/var/lib/news"		*/
+ 
+ /************************ CONFIGURATION COMPLETED ************************/
+--- hostname.c.orig	2009-11-11 16:00:16.485194441 -0500
++++ hostname.c	2009-11-11 16:15:25.741225660 -0500
+@@ -17,6 +17,7 @@
+ #include <unistd.h>
+ #include <string.h>
+ #include "config.h"
++#include "global.h"
+ 
+ #undef DONE
+ 

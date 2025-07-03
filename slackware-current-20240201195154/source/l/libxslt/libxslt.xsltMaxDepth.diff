@@ -1,0 +1,11 @@
+--- ./libxslt/transform.c.orig	2023-11-16 06:36:28.000000000 -0600
++++ ./libxslt/transform.c	2023-11-16 20:15:38.041665574 -0600
+@@ -68,7 +68,7 @@
+ 			  const xmlChar **systemID);
+ #endif
+ 
+-int xsltMaxDepth = 3000;
++int xsltMaxDepth = 4000;
+ int xsltMaxVars = 15000;
+ 
+ /*

@@ -1,0 +1,11 @@
+--- ./src/wc.c.orig	2023-08-29 06:39:27.000000000 -0500
++++ ./src/wc.c	2023-08-29 13:24:53.642035314 -0500
+@@ -147,7 +147,7 @@
+ static bool
+ avx2_supported (void)
+ {
+-  bool avx_enabled = 0 < __builtin_cpu_supports ("avx2");
++  bool avx_enabled = 0;
+ 
+   if (debug)
+     error (0, 0, (avx_enabled

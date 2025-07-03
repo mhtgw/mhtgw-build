@@ -1,0 +1,11 @@
+--- ./app-defaults/Fig.orig	2023-08-25 21:50:53.479703166 -0500
++++ ./app-defaults/Fig	2023-08-25 21:51:38.748704178 -0500
+@@ -34,7 +34,7 @@
+ 
+ ! Spell check program - put your favorite spelling check program here.
+ !		It must write the misspelled words to standard output.
+-Fig.spellcheckcommand:		spell %f
++Fig.spellcheckcommand:		aspell -a %f
+ 
+ ! delay before spinner automatically counts when pressed (milliseconds)
+ Fig.spinner_delay:		1000

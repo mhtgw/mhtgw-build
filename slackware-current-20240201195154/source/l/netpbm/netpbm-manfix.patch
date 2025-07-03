@@ -1,0 +1,25 @@
+--- ./userguide/escp2topbm.html.orig	2020-08-31 20:12:45.000000000 -0500
++++ ./userguide/escp2topbm.html	2020-08-31 20:14:36.329985600 -0500
+@@ -8,6 +8,7 @@
+ 
+ <h2>NAME</h2>
+ 
++<H2>NAME</H2>
+ escp2topbm - convert an ESC/P2 printer file to a PBM image
+ 
+ <h2 id="synopsis">SYNOPSIS</h2>
+--- ./userguide/faxformat.html.orig	2020-08-31 20:12:45.000000000 -0500
++++ ./userguide/faxformat.html	2020-08-31 20:14:36.329985600 -0500
+@@ -5,10 +5,11 @@
+ Updated: 03 December 2008
+ <br>
+ 
++<H2>SYNOPSIS</H2>
+ <p>This page, part of the <a href="index.html">Netpbm user's guide</a>,
+ describes FAX formats in relation to Netpbm facilities.
+ 
+-
++<H2>DESCRIPTION</H2>
+ <p>The ITU (formerly CCITT) publishes standards for operation of fax machines
+ (the idea is to provide a way to be sure that a fax machine is able to receive
+ a fax sent by another).  These standards incidentally specify graphics file

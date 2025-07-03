@@ -1,0 +1,44 @@
+Thu Jan  4 20:38:00 UTC 2024
+  libcap-ng: patch to fix build with swig-4.2.0. Thanks to lucabon.
++--------------------------+
+Tue Dec 12 19:23:30 UTC 2023
+  libsoup: patch to fix build with libxml2-2.12. Thanks to marav.
++--------------------------+
+Fri Oct 27 17:55:58 UTC 2023
+  ffmpeg: fix building HTML documentation with texinfo-7.1.
+  Thanks to rizitis.
++--------------------------+
+Sat Oct 14 19:43:09 UTC 2023
+  qt5: fix build with libxkbcommon-1.6.0. Thanks to lucabon.
++--------------------------+
+Tue Aug 15 02:20:40 UTC 2023
+  rinutils: use release tarball from github since tar.gz pull is missing needed
+    components. Thanks to lucabon.
++--------------------------+
+Fri Aug  4 04:22:19 UTC 2023
+  ffmpeg: applied patch to build with binutils-2.41. Thanks to marav.
++--------------------------+
+Thu May  4 03:21:41 UTC 2023
+  qt5-webkit: Fix build with gcc13. Thanks to nobodino.
++--------------------------+
+Tue May  2 19:04:09 UTC 2023
+  qt5: fix build with gcc13. Thanks to marav and nobodino.
++--------------------------+
+Tue May  2 18:47:43 UTC 2023
+  cryfs: patch for gcc13. Thanks to nobodino.
++--------------------------+
+Sun Feb  5 20:29:10 UTC 2023
+  qt5-webkit: Fix build with ruby-3.2.0. Thanks to nobodino and marav.
++--------------------------+
+Tue Nov  1 18:49:18 UTC 2022
+  glibc: fix build with make-4.4. Thanks to nobodino and marav.
++--------------------------+
+Sun Oct  9 20:08:52 UTC 2022
+  clucene: add #include <ctime>. Thanks to nobodino.
++--------------------------+
+Tue Apr 12 00:21:44 UTC 2022
+  babl: fix to build with meson 0.62.0. Thanks to nobodino.
++--------------------------+
+Mon Feb  7 20:57:55 UTC 2022
+  All packages tested and found to compile properly.
++--------------------------+
